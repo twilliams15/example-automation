@@ -1,8 +1,7 @@
 {
   "name": "selenium-mocha-chai-testing",
   "scripts": {
-    "test": "node_modules/.bin/mocha Tests/DefaultTest.js --timeout 15000",
-    "starbucks": "node_modules/.bin/mocha Tests/StarbucksExampleTest.js --timeout 15000"
+    "test": "node_modules/.bin/mocha Tests/FormSmartsExampleTestSuite.js --timeout 15000"
   },
   "private": true,
   "devDependencies": {
