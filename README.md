@@ -2,7 +2,7 @@
 
 Using a combination of Selenium, Mocha, and Chai, this test suite is meant to showcase some of my abilities as a QA automation engineer.
 
-Here's an exceprt from my resume:
+Here's an excerpt from my resume:
 
 **GoFundMe, CrowdRise, Stauffer, Nintendo, Digital Hearts, Konami**\
 QA Engineer, QA Coordinator, QA Lead\
