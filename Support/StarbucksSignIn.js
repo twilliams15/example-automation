@@ -1,4 +1,8 @@
-// Starbucks Sign In
+/* Starbucks Sign In
+ *
+ * Supporting page object for Starbucks Sign In page.
+ */
+
 
 const webdriver = require('selenium-webdriver');
 const By = webdriver.By;

@@ -10,7 +10,7 @@ const driver = new webdriver.Builder()
     .setChromeOptions( /* … */)
     .build();
 
-const signIn = require('../Pages/StarbucksSignIn')(driver);
+const signIn = require('../Support/StarbucksSignIn')(driver);
 
 test.describe('Starbucks Sign In Test Suite', function() {
     
