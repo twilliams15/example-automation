@@ -1,7 +1,6 @@
 {
   "name": "selenium-mocha-chai-testing",
   "scripts": {
-    "test": "node_modules/.bin/mocha Tests/Example.js --timeout 15000",
     "form": "node_modules/.bin/mocha Tests/FormSmartsExampleTestSuite.js --timeout 15000"
   },
   "private": true,
