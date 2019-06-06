@@ -13,17 +13,18 @@ const driver = new webdriver.Builder()
     .setChromeOptions( /* … */)
     .build();
 
-const form = require('../Support/FormSmarts')(driver);
+const form = require('../Support/FormSmarts')(driver),
+      orderSummaries = require('../Support/OrderSummaries')();
 
 // Test Cases
 
 test.describe('Form Smarts Example Test Suite', function() {
+
+    test.beforeEach(function () {
+        driver.navigate().to(form.url);
+    });
     
     test.describe('Required Fields', function() {
-    
-        test.before(function () {
-            driver.navigate().to(form.url);
-        });
 
         test.it('First Name is required', function() {
             form.enterFirstName('');
@@ -69,8 +70,41 @@ test.describe('Form Smarts Example Test Suite', function() {
             });
         });
 
-        test.after(function () {
-            driver.quit();
+        test.it('Form can be submitted using only required fields', function() {
+            form.enterFirstName('First');
+            form.enterLastName('Last');
+            form.enterEmail('email@test.com');
+            form.enterShippingAddress('123 Main St');
+            form.submit();
+            form.findErrorMessages().then(errors => {
+                expect(errors.length).to.equal(0);
+            });
         });
+    });
+
+    test.describe('Order Summary', function() {
+
+        test.it('Displays the correct summary - Variation 1 - Defaults', function() {
+            form.enterDefaultsInRequiredFields();
+            form.submit();
+            form.getOrderSummary().then(orderSummary => {
+                expect(orderSummary).to.deep.equal(orderSummaries.var1);
+            });
+        });
+
+        test.it('Displays the correct summary - Variation 2 - Checkboxes', function() {
+            form.enterDefaultsInRequiredFields();
+            form.checkAllBoxes();
+            form.submit();
+            form.getOrderSummary().then(orderSummary => {
+                expect(orderSummary).to.deep.equal(orderSummaries.var2);
+            });
+        });
+
+        test.it('Displays the correct summary - Variation 3 - Radios');
+    });
+
+    test.after(function () {
+        driver.quit();
     });
 });

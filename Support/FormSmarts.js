@@ -10,19 +10,26 @@ const webdriver = require('selenium-webdriver'),
 
 module.exports = function(driver) {
     const elements = {
+        checkboxes: By.css('[type="checkbox"]'),
+        continue: By.css('[type="submit"]'),
+        email: By.css('[placeholder="Email"]'),
+        errors: By.css('.errmsg'),
         firstName: By.css('[placeholder="First Name"]'),
         lastName: By.css('[placeholder="Last Name"]'),
-        email: By.css('[placeholder="Email"]'),
+        orderSummary: By.css('table'),
         shippingAddress: By.css('[placeholder="Shipping Address"]'),
-        country: By.css(''),
-        product1: By.css(''),
-        product2: By.css(''),
-        product2Quantity: By.css(''),
-        continue: By.css('[type="submit"]'),
-        errors: By.css('.errmsg')
+        summaryHeaders: By.css('th'),
+        summaryValues: By.css('td')
     };
     return {
         url: 'https://formsmarts.com/form/df1?mode=h5',
+        checkAllBoxes: function() {
+            return driver.findElements(elements.checkboxes).then(checkboxes => {
+                return checkboxes.map(checkbox => {
+                    checkbox.click();
+                });
+            });  
+        },
         enterFirstName: function(value) {
             return driver.findElement(elements.firstName).then(firstName => {
                 firstName.clear();
@@ -47,11 +54,36 @@ module.exports = function(driver) {
                 shippingAddress.sendKeys(value);
             });
         },
+        enterDefaultsInRequiredFields: function() {
+            this.enterFirstName('First');
+            this.enterLastName('Last');
+            this.enterEmail('email@test.com');
+            this.enterShippingAddress('123 Main St');
+        },
         submit: function() {
-            return driver.findElement(elements.continue).click();
+            return driver.findElement(elements.continue).then(submit => {
+                submit.click();
+            });
         },
         findErrorMessages: function() {
             return driver.findElements(elements.errors);
+        },
+        getOrderSummary: function() {
+            return driver.wait(until.elementLocated(elements.orderSummary)).then(() => {
+                return driver.findElements(elements.summaryHeaders).then(headers => {
+                    return driver.findElements(elements.summaryValues).then(values => {
+                        let orderSummary = {};
+                        for (let i = 0; i < headers.length; i++) {
+                            headers[i].getText().then(header => {
+                                values[i].getText().then(value => {
+                                    orderSummary[header] = value;
+                                });
+                            });
+                        }
+                        return orderSummary;
+                    });
+                });
+            });
         }
     };
 };
