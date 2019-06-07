@@ -65,7 +65,7 @@ module.exports = function(driver) {
                 submit.click();
             });
         },
-        findErrorMessages: function() {
+        getErrors: function() {
             return driver.findElements(elements.errors);
         },
         getOrderSummary: function() {

@@ -4,13 +4,11 @@
  */
 
 const webdriver = require('selenium-webdriver'),
-      test = require('selenium-webdriver/testing'),
       chai = require('chai'),
       expect = chai.expect;
 
 const driver = new webdriver.Builder()
     .forBrowser('chrome')
-    .setChromeOptions( /* … */)
     .build();
 
 const form = require('../Support/FormSmarts')(driver),
@@ -18,93 +16,97 @@ const form = require('../Support/FormSmarts')(driver),
 
 // Test Cases
 
-test.describe('Form Smarts Example Test Suite', function() {
+describe('Form Smarts Example Test Suite', function() {
 
-    test.beforeEach(function () {
-        driver.navigate().to(form.url);
+    beforeEach(function (done) {
+        driver.navigate().to(form.url).then(done);
     });
     
-    test.describe('Required Fields', function() {
+    describe('Required Fields', function() {
 
-        test.it('First Name is required', function() {
+        it('First Name is required', function(done) {
             form.enterFirstName('');
             form.enterLastName('Last');
             form.enterEmail('email@test.com');
             form.enterShippingAddress('123 Main St');
             form.submit();
-            form.findErrorMessages().then(errors => {
+            form.getErrors().then(errors => {
                 expect(errors.length).to.equal(1);
+                done();
             });
         });
 
-        test.it('Last Name is required', function() {
+        it('Last Name is required', function(done) {
             form.enterFirstName('First');
             form.enterLastName('');
             form.enterEmail('email@test.com');
             form.enterShippingAddress('123 Main St');
             form.submit();
-            form.findErrorMessages().then(errors => {
+            form.getErrors().then(errors => {
                 expect(errors.length).to.equal(1);
+                done();
             });
         });
 
-        test.it('Email Address is required', function() {
+        it('Email Address is required', function(done) {
             form.enterFirstName('First');
             form.enterLastName('Last');
             form.enterEmail('');
             form.enterShippingAddress('123 Main St');
             form.submit();
-            form.findErrorMessages().then(errors => {
+            form.getErrors().then(errors => {
                 expect(errors.length).to.equal(1);
+                done();
             });
         });
 
-        test.it('Shipping Address is required', function() {
+        it('Shipping Address is required', function(done) {
             form.enterFirstName('First');
             form.enterLastName('Last');
             form.enterEmail('email@test.com');
             form.enterShippingAddress('');
             form.submit();
-            form.findErrorMessages().then(errors => {
+            form.getErrors().then(errors => {
                 expect(errors.length).to.equal(1);
+                done();
             });
         });
 
-        test.it('Form can be submitted using only required fields', function() {
-            form.enterFirstName('First');
-            form.enterLastName('Last');
-            form.enterEmail('email@test.com');
-            form.enterShippingAddress('123 Main St');
+        it('Form can be submitted using only required fields', function(done) {
+            form.enterDefaultsInRequiredFields();
             form.submit();
-            form.findErrorMessages().then(errors => {
+            form.getErrors().then(errors => {
                 expect(errors.length).to.equal(0);
+                done();
             });
         });
     });
 
-    test.describe('Order Summary', function() {
+    describe('Order Summary', function() {
 
-        test.it('Displays the correct summary - Variation 1 - Defaults', function() {
+        it('Displays the correct summary - Variation 1 - Defaults', function(done) {
             form.enterDefaultsInRequiredFields();
             form.submit();
             form.getOrderSummary().then(orderSummary => {
                 expect(orderSummary).to.deep.equal(orderSummaries.var1);
+                done();
             });
         });
 
-        test.it('Displays the correct summary - Variation 2 - Checkboxes', function() {
+        it('Displays the correct summary - Variation 2 - Checkboxes', function(done) {
             form.enterDefaultsInRequiredFields();
             form.checkAllBoxes();
             form.submit();
             form.getOrderSummary().then(orderSummary => {
                 expect(orderSummary).to.deep.equal(orderSummaries.var2);
+                done();
             });
         });
 
-        test.it('Displays the correct summary - Variation 3 - Radios');
+        it('Displays the correct summary - Variation 3 - Radios');
     });
 
-    test.after(function () {
-        driver.quit();
+    after(function (done) {
+        driver.quit().then(done);
     });
 });

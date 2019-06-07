@@ -8,6 +8,6 @@
     "chai": "*",
     "chromedriver": "*",
     "mocha": "*",
-    "selenium-webdriver": "^3.6.0"
+    "selenium-webdriver": "*"
   }
 }
