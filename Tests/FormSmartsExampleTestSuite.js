@@ -104,6 +104,7 @@ describe('Form Smarts Example Test Suite', function() {
         });
 
         it('Displays the correct summary - Variation 3 - Radios');
+          // Pending test
     });
 
     after(function (done) {
