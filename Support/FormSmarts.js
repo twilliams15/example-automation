@@ -25,10 +25,10 @@ module.exports = function(driver) {
         url: 'https://formsmarts.com/form/df1?mode=h5',
         checkAllBoxes: function() {
             return driver.findElements(elements.checkboxes).then(checkboxes => {
-                return checkboxes.map(checkbox => {
+                return checkboxes.forEach(checkbox => {
                     checkbox.click();
                 });
-            });  
+            });
         },
         enterFirstName: function(value) {
             return driver.findElement(elements.firstName).then(firstName => {
