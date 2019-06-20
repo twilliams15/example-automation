@@ -10,7 +10,7 @@ module.exports = function(driver) {
               emailField: By.css('#email'),
               emailFieldError: By.css('#email ~ small.help-block'),
               passwordField: By.css('#password'),
-              passwordFieldError: By.css('#email ~ small.help-block'),
+              passwordFieldError: By.css('#password ~ small.help-block'),
               submit: By.css('[type="submit"]'),
               displayEmail: By.css('#email-password > div > div.h4.settings-block'),
               modalError: By.css('#email-form > div > div.alert')
