@@ -82,7 +82,7 @@ describe('CrowdRise Example Tests', function() {
                 });
             });
 
-            describe.only('Updating the Password', function() {
+            describe('Updating the Password', function() {
 
                 before(async function() {
                     await password.openPasswordModal();
@@ -136,7 +136,7 @@ describe('CrowdRise Example Tests', function() {
                     expect(error).to.equal('One number required.');
                 });
 
-                it.only('Requirements list dynamically updates', async function() {
+                it('Requirements list dynamically updates', async function() {
                     await password.enterNewPassword('P');
                     let failedReqs = await password.getFailedRequirements();
                     expect(failedReqs).to.deep.equal([
@@ -175,9 +175,9 @@ describe('CrowdRise Example Tests', function() {
                     expect(error).to.equal('Field must match corresponding field.');
                 });
 
-                it('Current Password must be correct');
+                it('Current Password must be correct'); // pending
 
-                it('Can successfully update the password');
+                it('Can successfully update the password'); // pending
             });
         });
 

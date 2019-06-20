@@ -1,6 +1,6 @@
 /* Core Support for CrowdRise tests */
 
-const { By, Key, until } = require('selenium-webdriver');
+const { By, until } = require('selenium-webdriver');
 
 module.exports = function(driver) {
     const url = 'https://www.crowdrise.com/signin/form',
