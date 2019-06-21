@@ -71,8 +71,6 @@ describe('CrowdRise Example Tests', function() {
                     await email.enterEmail('updatedEmail@test.com');
                     await email.enterPassword(cr.password);
                     await email.submit();
-                    const displayEmail = await email.getDisplayEmail();
-                    expect(displayEmail).to.equal('updatedEmail@test.com');
 
                     // revert email
                     await email.openEmailModal();
@@ -175,9 +173,28 @@ describe('CrowdRise Example Tests', function() {
                     expect(error).to.equal('Field must match corresponding field.');
                 });
 
-                it('Current Password must be correct'); // pending
+                it('Current Password must be correct', async function() {
+                    await password.enterCurrentPassword('incorrectPassword');
+                    await password.enterNewPassword('Password2!');
+                    await password.enterConfirmNewPassword('Password2!');
+                    await password.submitExpectingError();
+                    const error = await password.getModalError();
+                    expect(error).to.equal('There was an error processing your request. Access Denied');
+                });
 
-                it('Can successfully update the password'); // pending
+                it('Can successfully update the password', async function() {
+                    await password.enterCurrentPassword(cr.password);
+                    await password.enterNewPassword('Password2!');
+                    await password.enterConfirmNewPassword('Password2!');
+                    await password.submit();
+
+                    // revert
+                    await password.openPasswordModal();
+                    await password.enterCurrentPassword('Password2!');
+                    await password.enterNewPassword(cr.password);
+                    await password.enterConfirmNewPassword(cr.password);
+                    await password.submit();
+                });
             });
         });
 

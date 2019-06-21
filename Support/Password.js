@@ -17,16 +17,12 @@ module.exports = function(driver) {
               submit: By.css('[type="submit"]'),
               requirementsFailed: By.css('.color-status-red'),
               requirementsPassed: By.css('.color-status-green'),
+              modalError: By.css('#password-form div.alert')
           };
     function find(element) {
         driver.wait(until.elementLocated(element));
         return driver.findElement(element);
     };
-    // async function asyncForEach(array, callback) {
-    //     for (let index = 0; index < array.length; index++) {
-    //         await callback(array[index], index, array);
-    //     }
-    // };
     return {
         loadPage: function() {
             driver.navigate().to(url);
@@ -63,6 +59,7 @@ module.exports = function(driver) {
         },
         submitExpectingError: function() {
             return find(elements.submit).click();
+            // doesn't wait for the modal to close after submission
         },
         getCurrentPasswordFieldError: function() {
             return find(elements.currentPasswordFieldError).getText().then(error => {
@@ -82,6 +79,11 @@ module.exports = function(driver) {
         getFailedRequirements: async function() {
             return await driver.findElements(elements.requirementsFailed).then(failedReqs => {
                 return support.addElementsTextToArray(failedReqs)
+            });
+        },
+        getModalError: function() {
+            return find(elements.modalError).getText().then(error => {
+                return error;
             });
         }
     };

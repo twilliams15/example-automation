@@ -4,8 +4,7 @@
   "homepage": "https://github.com/twilliams15/example-automation",
   "private": true,
   "scripts": {
-    "formsmarts": "node_modules/.bin/mocha Tests/FormSmartsExampleTestSuite.js --timeout 15000",
-    "crowdrise": "node_modules/.bin/mocha Tests/CrowdRiseExampleTests.js --timeout 15000"
+    "crowdrise": "node_modules/.bin/mocha Tests/CrowdRiseExampleTests.js --timeout 60000"
   },
   "devDependencies": {
     "chai": "*",
