@@ -4,7 +4,7 @@ const { By, Key, until } = require('selenium-webdriver');
 const { support } = require('./SupportFunctions')();
 
 module.exports = function(driver) {
-    const url = 'https://www.crowdrise.com/o/en/settings/email-password',
+    const url = 'https://local.crowdrise.com/o/en/settings/email-password',
           elements = {
               passwordModalLink: By.css('#email-password > div > div:nth-child(6) > button'),
               passwordModal: By.css('.modal-dialog'),

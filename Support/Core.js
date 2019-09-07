@@ -3,14 +3,14 @@
 const { By, until } = require('selenium-webdriver');
 
 module.exports = function(driver) {
-    const url = 'https://www.crowdrise.com/signin/form',
+    const url = 'https://local.crowdrise.com/signin/form',
           elements = {
               loginEmail: By.css('#email_address_login'),
               loginPassword: By.css('#password_login'),
               loginSubmit: By.css('[type="submit"]')
           };
     return {
-        email: '1example@test.com',
+        email: 'test000@test.com',
         password: 'Password1!',
         logIn: function() {
             driver.navigate().to(url);

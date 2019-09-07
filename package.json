@@ -4,11 +4,11 @@
   "homepage": "https://github.com/twilliams15/example-automation",
   "private": true,
   "scripts": {
-    "crowdrise": "node_modules/.bin/mocha Tests/CrowdRiseExampleTests.js --timeout 60000"
+    "crowdrise": "node_modules/.bin/mocha Tests/EmailPassword.js --timeout 30000"
   },
   "devDependencies": {
     "chai": "*",
-    "chromedriver": "*",
+    "chromedriver": "^76.0.1",
     "mocha": "*",
     "selenium-webdriver": "*"
   }

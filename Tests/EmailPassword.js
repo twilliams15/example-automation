@@ -48,7 +48,7 @@ describe('CrowdRise Example Tests', function() {
                 });
 
                 it('Email must be different than current email', async function() {
-                    await email.enterEmail('1example@test.com');
+                    await email.enterEmail('test000@test.com');
                     const error = await email.getEmailFieldError();
                     expect(error).to.equal('New email must be different than current email.');
                 });
